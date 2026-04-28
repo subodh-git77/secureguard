@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SecureGuard</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<style>
+:root {
+    --primary: #3b82f6;
+    --accent: #8b5cf6;
+    --bg-dark: #050a18;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: white;
+    overflow-x: hidden;
+}
+
+/* BACKGROUND */
+.bg-glow {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 8%;
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* HERO */
+.hero {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* ENTRY ANIMATION */
+.hero > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards;
+}
+.hero > *:nth-child(2){ animation-delay: 0.2s; }
+.hero > *:nth-child(3){ animation-delay: 0.4s; }
+.hero > *:nth-child(4){ animation-delay: 0.6s; }
+.hero > *:nth-child(5){ animation-delay: 0.8s; }
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.badge {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #60a5fa;
+    margin-bottom: 20px;
+    backdrop-filter: blur(5px);
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ICON ANIMATION */
+.badge i {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.hero h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 20px 0;
+    background: linear-gradient(to bottom, #ffffff 60%, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    max-width: 650px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #94a3b8;
+    margin-bottom: 25px;
+}
+
+/* TRUST */
+.trust {
+    display: flex;
+    gap: 20px;
+    font-size: 13px;
+    color: #94a3b8;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.trust span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* BUTTONS */
+.buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn {
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+}
+
+/* GLOW HOVER EFFECT */
+.btn-primary::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: radial-gradient(circle, rgba(255,255,255,0.4), transparent 70%);
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.btn-primary:hover::after {
+    opacity: 1;
+}
+
+.btn-primary {
+    background: white;
+    color: black;
+    border: none;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.3);
+}
+
+/* DECORATIVE */
+.circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--primary);
+    filter: blur(120px);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Responsive (unchanged) */
+@media (max-width: 1024px) {
+    .navbar { padding: 20px 5%; }
+}
+@media (max-width: 768px) {
+    .hero { min-height: 85vh; padding: 0 15px; }
+    .hero p { font-size: 16px; }
+    .btn { padding: 14px 24px; font-size: 14px; }
+    .circle { width: 220px; height: 220px; }
+}
+@media (max-width: 480px) {
+    .navbar { padding: 15px 5%; }
+    .logo { font-size: 20px; }
+    .hero { min-height: 80vh; }
+    .hero h1 { font-size: 32px; }
+    .hero p { font-size: 15px; }
+    .buttons { flex-direction: column; gap: 12px; width: 100%; }
+    .btn { width: 100%; text-align: center; }
+    .circle { width: 180px; height: 180px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-glow"></div>
+
+<nav class="navbar">
+    <div class="logo">SecureGuard</div>
+</nav>
+
+<main class="hero">
+    
+    <div class="badge">
+        <i data-lucide="shield-check"></i>
+        Next-Gen Media Security
+    </div>
+    
+    <h1>Detect Deepfakes <br>With Total Clarity</h1>
+
+    <p>
+        The world's most advanced multimodal engine for exposing synthetically generated content. 
+        Trusted by investigators, journalists, and global enterprises.
+    </p>
+
+    <div class="trust">
+        <span><i data-lucide="lock"></i> Secure</span>
+        <span><i data-lucide="zap"></i> Fast</span>
+        <span><i data-lucide="cpu"></i> AI Powered</span>
+    </div>
+
+    <div class="buttons">
+        <a href="/upload" class="btn btn-primary">
+            <i data-lucide="scan"></i>
+            Try Detection Now →
+        </a>
+    </div>
+</main>
+
+<div class="circle" style="top: 10%; right: 10%;"></div>
+<div class="circle" style="bottom: 20%; left: 5%;"></div>
+
+<script>
+lucide.createIcons();
+</script>
+
+</body>
+</html>

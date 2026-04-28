@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Detection Portal</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --primary:#6366f1;
+    --primary-hover:#4f46e5;
+    --bg:#f8fafc;
+    --card-bg:#ffffff;
+    --text-main:#1e293b;
+    --text-muted:#64748b;
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:var(--bg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    margin:0;
+    padding:20px;
+    overflow:hidden;
+}
+
+/* ========================= */
+/* 🌌 PREMIUM BACKGROUND ADDITION */
+/* ========================= */
+
+.bg-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.20) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.10) 0%, transparent 60%);
+    animation: moveGlow 10s ease-in-out infinite alternate;
+}
+
+@keyframes moveGlow {
+    0% {
+        transform: scale(1) translateY(0px);
+    }
+    100% {
+        transform: scale(1.1) translateY(-20px);
+    }
+}
+
+/* floating blur orbs */
+.orb {
+    position: fixed;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    z-index: -1;
+}
+
+.orb.one {
+    background: #6366f1;
+    top: 10%;
+    left: 15%;
+}
+
+.orb.two {
+    background: #8b5cf6;
+    bottom: 10%;
+    right: 15%;
+}
+
+/* CONTAINER */
+.container{
+    background:var(--card-bg);
+    padding:40px;
+    width:100%;
+    max-width:420px;
+    border-radius:24px;
+    box-shadow:0 20px 25px -5px rgba(0,0,0,0.1);
+    text-align:center;
+    transition:0.3s;
+    z-index: 2;
+}
+
+.container:hover{
+    transform: translateY(-3px);
+}
+
+/* TEXT */
+h2{
+    margin-top:0;
+    font-weight:600;
+}
+
+p{
+    color:var(--text-muted);
+    font-size:0.95rem;
+    margin-bottom:30px;
+}
+
+/* UPLOAD */
+.upload-section{
+    border:2px dashed #e2e8f0;
+    padding:25px;
+    border-radius:16px;
+    margin-bottom:20px;
+    transition:0.2s;
+}
+
+.upload-section:hover{
+    border-color:var(--primary);
+    background:#f5f7ff;
+}
+
+input[type="file"]{
+    width:100%;
+}
+
+input[type="file"]::file-selector-button{
+    background:#f1f5f9;
+    border:none;
+    padding:8px 16px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:var(--primary);
+    color:white;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+button:hover{
+    background:var(--primary-hover);
+}
+
+button:active{
+    transform: scale(0.97);
+}
+
+/* LOADER */
+.loader {
+    display: none;
+    margin-top: 15px;
+}
+
+.loader div {
+    width: 10px;
+    height: 10px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 3px;
+    animation: bounce 0.6s infinite alternate;
+}
+
+.loader div:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader div:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    to {
+        transform: translateY(-8px);
+        opacity: 0.6;
+    }
+}
+
+/* LOADING STATE */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* ========================= */
+/* 📱 RESPONSIVE FIXES */
+/* ========================= */
+
+@media (max-width: 768px){
+    .container{
+        padding:30px 20px;
+        border-radius:20px;
+    }
+
+    p{
+        font-size:0.9rem;
+    }
+}
+
+@media (max-width: 480px){
+    body{
+        padding:15px;
+        align-items:flex-start;
+    }
+
+    .container{
+        padding:25px 18px;
+    }
+
+    h2{
+        font-size:1.4rem;
+    }
+
+    p{
+        font-size:0.85rem;
+        margin-bottom:20px;
+    }
+
+    .upload-section{
+        padding:20px;
+    }
+
+    button{
+        font-size:0.95rem;
+        padding:11px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🌌 BACKGROUND ELEMENTS -->
+<div class="bg-glow"></div>
+<div class="orb one"></div>
+<div class="orb two"></div>
+
+<div class="container" id="container">
+
+<h2>Smart AI Detection</h2>
+
+<p>
+Upload any media file and our AI Agent will automatically analyze it (.wav, .mp4, .jpg, .jpeg).
+</p>
+
+<form action="/predict" method="post" enctype="multipart/form-data" id="form">
+
+<div class="upload-section">
+<input type="file"
+       name="file"
+       accept=".jpg,.jpeg,.png,.mp3,.wav,.mp4"
+       required>
+</div>
+
+<button type="submit" id="submitBtn">
+Run AI Detection
+</button>
+
+<div class="loader" id="loader">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+</form>
+
+</div>
+
+<script>
+const form = document.getElementById("form");
+const loader = document.getElementById("loader");
+const button = document.getElementById("submitBtn");
+const container = document.getElementById("container");
+
+form.addEventListener("submit", () => {
+    loader.style.display = "block";
+    button.innerText = "Processing...";
+    button.disabled = true;
+    container.classList.add("loading");
+});
+</script>
+
+</body>
+</html>

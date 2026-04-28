@@ -1,0 +1,19 @@
+tensorflow
+keras
+h5py
+numpy
+
+opencv-python
+matplotlib
+scikit-learn
+joblib
+tqdm
+librosa
+
+flask
+Pillow
+
+ffmpeg-python
+torchvision
+timm
+facenet_pytorch --only-binary=:all:
